@@ -143,8 +143,8 @@ on `192.168.1.11`:
 -   **Start and Enable HAProxy**:
     
     
-    `sudo systemctl start haproxy
-    sudo systemctl enable haproxy` 
+    `sudo systemctl start haproxy`
+    `sudo systemctl enable haproxy` 
     
 
 ### 5. Deploy Web Application
