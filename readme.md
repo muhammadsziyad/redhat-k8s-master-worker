@@ -67,25 +67,44 @@ graph TD;
 
 #### On Each Master Node
 
+- ** Add Kubernetes Repository **:
+```bash
+# This overwrites any existing configuration in /etc/yum.repos.d/kubernetes.repo
+cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://pkgs.k8s.io/core:/stable:/v1.31/rpm/
+enabled=1
+gpgcheck=1
+gpgkey=https://pkgs.k8s.io/core:/stable:/v1.31/rpm/repodata/repomd.xml.key
+EOF
+```
+
 -   **Install Kubernetes Packages**:
     
     
-    `sudo yum install -y kubeadm kubelet kubectl
-    sudo systemctl enable kubelet` 
+    ```
+    sudo yum install -y kubeadm kubelet kubectl
+    sudo systemctl enable kubelet
+    ``` 
     
 -   **Initialize the Kubernetes Cluster**: On the first master node (e.g., `192.168.1.10`):
     
     
-    `sudo kubeadm init --control-plane-endpoint 192.168.1.100:6443 --upload-certs` 
+    ```
+    sudo kubeadm init --control-plane-endpoint 192.168.1.100:6443 --upload-certs
+    ``` 
     
     Save the output, including the `kubeadm join` command with the token and certificate key.
     
 -   **Set Up kubeconfig**: On the first master node (`192.168.1.10`):
     
     
-    `mkdir -p $HOME/.kube
+    ```
+    mkdir -p $HOME/.kube
     sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-    sudo chown $(id -u):$(id -g) $HOME/.kube/config` 
+    sudo chown $(id -u):$(id -g) $HOME/.kube/config
+    ``` 
     
 -   **Install a Network Plugin**: For example, using Calico:
     
@@ -107,8 +126,10 @@ on `192.168.1.11`:
 -   **Install Kubernetes Packages**: On each worker node (e.g., `192.168.1.20`):
     
     
-    `sudo yum install -y kubeadm kubelet kubectl
-    sudo systemctl enable kubelet` 
+    ```
+    sudo yum install -y kubeadm kubelet kubectl
+    sudo systemctl enable kubelet
+    ``` 
     
 -   **Join the Cluster**: Use the `kubeadm join` command from the master node setup output. For example:
     
@@ -143,8 +164,10 @@ on `192.168.1.11`:
 -   **Start and Enable HAProxy**:
     
     
-    `sudo systemctl start haproxy`
-    `sudo systemctl enable haproxy` 
+    ```
+    sudo systemctl start haproxy
+    sudo systemctl enable haproxy
+    ```
     
 
 ### 5. Deploy Web Application
@@ -206,8 +229,10 @@ on `192.168.1.11`:
 -   **Verify Web Application Deployment**:
     
     
-    `kubectl get deployments
-    kubectl get services` 
+    ```
+    kubectl get deployments
+    kubectl get services
+    ```
     
     Access the web application using the external IP of the `web-app-service`.
     
