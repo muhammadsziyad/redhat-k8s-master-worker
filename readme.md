@@ -67,7 +67,7 @@ graph TD;
 
 #### On Each Master Node
 
-- ** Add Kubernetes Repository **:
+- **Add Kubernetes Repository**:
 ```bash
 # This overwrites any existing configuration in /etc/yum.repos.d/kubernetes.repo
 cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
