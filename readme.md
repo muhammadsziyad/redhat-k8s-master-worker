@@ -128,7 +128,8 @@ on `192.168.1.11`:
     Edit `/etc/haproxy/haproxy.cfg`:
     
     
-    ```frontend kubernetes_api
+    ```
+    frontend kubernetes_api
         bind *:6443
         default_backend kubernetes_master
     
@@ -136,7 +137,8 @@ on `192.168.1.11`:
         balance roundrobin
         server master1 192.168.1.10:6443 check
         server master2 192.168.1.11:6443 check
-        server master3 192.168.1.12:6443 check``` 
+        server master3 192.168.1.12:6443 check
+    ``` 
     
 -   **Start and Enable HAProxy**:
     
